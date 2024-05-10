@@ -7,7 +7,7 @@ export function GetId() {
   const GetId = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_URL}` + "game?id=475",
+        `${import.meta.env.VITE_URL}` + "game?id=220",
         {
           headers: {
             "X-RapidAPI-Key":
@@ -17,7 +17,7 @@ export function GetId() {
         }
       );
       get_id.value = response.data;
-      console.log(response.data);
+      console.log(response.data); 
 
     } catch (e) {
 

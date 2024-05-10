@@ -2,14 +2,14 @@
   <div v-if="isLoading">
     <loader />
   </div>
-  <div v-else>
+  <div v-else class="flex flex-col gap-24">
     <carousel :carousel="get_info" />
-    <div class="flex flex-wrap gap-5 justify-center">
-      <category :category="get_info" />
-      <MainAllGames />
 
-      <!-- <Allgames :game_mod="get_info" /> -->
-    </div>
+    <category :category="get_info" />
+    <MainAllGames />
+    <popular />
+    <collections />
+    <!-- <Allgames :game_mod="get_info" /> -->
   </div>
 </template>
 
@@ -22,6 +22,8 @@ import Allgames from "./games/Allgames.vue";
 import loader from "@/components/UI/Loader.vue";
 import MainAllGames from "./games/MainAllGames.vue";
 import carousel from "./carousel/carousel.vue";
+import popular from "./popular/popular.vue";
+import collections from "./collections/collections.vue";
 const { isLoading, get_info } = GetInfo();
 const { get_id } = GetId();
 const some_hero = ref("");

@@ -1,6 +1,11 @@
 <template>
   <div class="">
-    <Carousel :autoplay="3000" class="carousel_main" :wrap-around="true">
+    <Carousel
+      :transition="500"
+      :autoplay="3000"
+      class="carousel_main"
+      :wrap-around="true"
+    >
       <Slide
         v-for="{ img, id, name, desc } in carousel_img.slice(0, 5)"
         :key="id"
@@ -13,7 +18,7 @@
             alt=""
           />
 
-          <div class="bg-black w-full absolute top-0 bottom-0 opacity-70"></div>
+          <div class="bg-black w-full absolute top-0 bottom-0 opacity-60"></div>
           <div
             class="z-10 absolute flex flex-col items-start top-[35%] left-[15%] gap-3"
           >
@@ -76,14 +81,15 @@ const carousel_img = ref([
 .carousel .carousel__viewport .carousel__track {
 }
 .button_pag .carousel__pagination-item .carousel__pagination-button::after {
-  background: lightseagreen;
+  background: black;
   border-radius: 999px;
-  height: 8px;
+  height: 12px;
+  border: 1px solid;
 }
 .button_pag
   .carousel__pagination-item
   .carousel__pagination-button--active::after {
-  background: red;
+  background: white;
 }
 .carousel_main .carousel__viewport {
   max-height: 270px;
