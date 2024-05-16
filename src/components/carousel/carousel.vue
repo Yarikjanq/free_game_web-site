@@ -1,11 +1,6 @@
 <template>
-  <div class="">
-    <Carousel
-      :transition="500"
-      :autoplay="3000"
-      class="carousel_main"
-      :wrap-around="true"
-    >
+  <div class="pt-16">
+    <Carousel :transition="500" class="carousel_main" :wrap-around="true">
       <Slide
         v-for="{ img, id, name, desc } in carousel_img.slice(0, 5)"
         :key="id"
@@ -92,9 +87,10 @@ const carousel_img = ref([
   background: white;
 }
 .carousel_main .carousel__viewport {
-  max-height: 270px;
+  max-height: 320px;
+  border-radius: 30px;
 }
 .carousel_main .carousel__viewport .carousel__track .carousel__slide {
-  height: 272px;
+  height: 320px;
 }
 </style>

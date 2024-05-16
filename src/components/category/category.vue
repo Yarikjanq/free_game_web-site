@@ -90,6 +90,8 @@ const genre_game = ref([
   max-height: 350px;
   height: 100%;
 }
+.carousel_categ .carousel__viewport {
+}
 .carousel_categ .carousel__viewport .carousel__track .carousel__slide {
   /* width: 200px !important; */
   border: 3px solid cadetblue;
