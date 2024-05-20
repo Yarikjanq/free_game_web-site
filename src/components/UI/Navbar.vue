@@ -1,6 +1,11 @@
 <template>
   <div class="border-b border-solid py-2 flex justify-between">
-    <img :src="logo" alt="" class="w-[57px]" />
+    <img
+      @click="$router.push('/')"
+      :src="logo"
+      alt=""
+      class="w-[57px] cursor-pointer"
+    />
     <div
       class="flex items-center gap-10"
       :class="{ 'expandInpu-block-active': expand }"
@@ -23,11 +28,15 @@
             v-model="search_game"
             @click="expandInput"
             type="search"
-            class="w-full search-input text-white"
+            class="w-full search-input text-white rounded-xl"
             :class="{ 'expandInpu-input-active': expand }"
           />
         </div>
-        <searchGames :search_game="search_game" :games="filteredGames" />
+        <searchGames
+          @showId="showIdHandler"
+          :search_game="search_game"
+          :games="filteredGames"
+        />
       </div>
     </div>
   </div>
@@ -39,13 +48,14 @@ import logo_game from "@/assets/images/logo_game.jpg";
 import searchGames from "../searchGames/searchGames.vue";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const expand = ref(false);
 const store = useStore();
 
 const games = computed(() => {
   return store.getters["games"];
 });
-console.log(games);
 
 onMounted(() => {
   store.dispatch("fetchGames");
@@ -57,8 +67,22 @@ const expandInput = () => {
 };
 const handleOutsideClick = (event) => {
   const inputElement = document.querySelector(".search-input");
-  if (inputElement && !inputElement.contains(event.target)) {
+  const inputScroll = document.querySelector(".scrollbar");
+  if (
+    search_game.value === "" &&
+    inputElement &&
+    !inputElement.contains(event.target)
+  ) {
     expand.value = false;
+  }
+  if (
+    inputElement &&
+    !inputElement.contains(event.target) &&
+    inputScroll &&
+    !inputScroll.contains(event.target)
+  ) {
+    expand.value = false;
+    search_game.value = "";
     document.removeEventListener("click", handleOutsideClick);
   }
 };
@@ -72,6 +96,13 @@ const filteredGames = computed(() => {
     return games.value;
   }
 });
+const showIdHandler = (id: number, title: string) => {
+  expand.value = false;
+  search_game.value = "";
+  store.dispatch("fetchGameById", id).then(() => {
+    router.push(`/${title}/${id}`);
+  });
+};
 </script>
 <style scoped>
 .expandInpu-active {

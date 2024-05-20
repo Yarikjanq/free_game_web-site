@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="bg-[darkslategrey] flex items-center justify-between px-[107px] py-[38px]"
+    class="bg-[darkslategrey] flex items-center justify-between px-[107px] py-[38px] mt-24 mb-6"
   >
     <div class="flex items-center gap-7">
       <img class="w-28" :src="logo" alt="" />
