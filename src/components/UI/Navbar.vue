@@ -14,11 +14,11 @@
         class="flex gap-10 items-center max-w-[830px] w-full justify-between"
         :class="{ list_header: expand }"
       >
-        <p class="">List of games</p>
-        <p class="">Popular</p>
-        <p class="">New</p>
-        <p class="">Genre</p>
-        <p class="">Collections</p>
+        <p class="cursor-pointer">List of games</p>
+        <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
+        <p class="cursor-pointer">New</p>
+        <p class="cursor-pointer">Genre</p>
+        <p class="cursor-pointer">Collections</p>
       </div>
       <div class="flex flex-col" :class="{ 'expandInpu-active': expand }">
         <div class="flex gap-2 items-center">
@@ -44,7 +44,6 @@
 <script setup lang="ts">
 import logo from "@/assets/images/logo.jpg";
 import search from "@/assets/images/search.svg";
-import logo_game from "@/assets/images/logo_game.jpg";
 import searchGames from "../searchGames/searchGames.vue";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";

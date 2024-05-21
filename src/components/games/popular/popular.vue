@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import icon from "@/assets/images/right-arrow.svg";
-import game_card from "../CARD/game_card.vue";
+import game_card from "@/components/games/CARD/game_card.vue";
 import cyberpunk from "@/assets/images/сyberpunk.jpg";
 import metro from "@/assets/images/metro.avif";
 import fallout from "@/assets/images/fallout4.jpg";

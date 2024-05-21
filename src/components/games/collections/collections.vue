@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import icon from "@/assets/images/right-arrow.svg";
-import game_card from "../CARD/game_card.vue";
+import game_card from "@/components//games/CARD/game_card.vue";
 import team from "@/assets/images/team.jpg";
 import open_world from "@/assets/images/open-world.jpg";
 import zombi from "@/assets/images/zombi.jpg";

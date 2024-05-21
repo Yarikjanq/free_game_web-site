@@ -1,6 +1,11 @@
 <template>
   <div class="pt-16">
-    <Carousel :transition="500" class="carousel_main" :wrap-around="true">
+    <Carousel
+      :autoplay="3000"
+      :transition="500"
+      class="carousel_main"
+      :wrap-around="true"
+    >
       <Slide
         v-for="{ img, id, name, desc } in carousel_img.slice(0, 5)"
         :key="id"
