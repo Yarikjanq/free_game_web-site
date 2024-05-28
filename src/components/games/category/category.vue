@@ -8,9 +8,10 @@
       v-bind="settings"
       :breakpoints="breakpoints"
       :wrap-around="true"
+      :items-to-scroll="1"
       :transition="500"
     >
-      <Slide v-for="({ genre, img }, index) in genre_game" :key="index">
+      <Slide v-for="({ genre, img, url }, index) in genre_game" :key="index">
         <div class="relative h-full w-full">
           <div
             class="carousel__item absolute bottom-3 font-medium left-0 right-0 z-[1] text-white text-xl"
@@ -64,23 +65,23 @@ const breakpoints = {
   snapAlign: "center",
 };
 const genre_game = ref([
-  { genre: "Shooter", img: shooter },
-  { genre: "ARPG", img: Towerborne },
-  { genre: "Action RPG", img: action_rpg },
-  { genre: "Battle Royale", img: battle_royale },
-  { genre: "MMORPG", img: mmorpg },
-  { genre: "MMOARPG", img: mmoarpg },
-  { genre: "Fighting", img: fighting },
-  { genre: "MOBA", img: moba },
-  { genre: "Action Game", img: action_game },
-  { genre: "Card", img: card },
-  { genre: "Action", img: action },
-  { genre: "Sports", img: sport },
-  { genre: "Racing", img: racing },
-  { genre: "Card Game", img: card_game },
-  { genre: "MMO", img: mmo },
-  { genre: "Social", img: social },
-  { genre: "Fantasy", img: fantasy },
+  { genre: "Shooter", url: "shooter", img: shooter },
+  { genre: "ARPG", url: "shooter", img: Towerborne },
+  { genre: "Action RPG", url: "action-rpg", img: action_rpg },
+  { genre: "Battle Royale", url: "shooter", img: battle_royale },
+  { genre: "MMORPG", url: "mmorpg", img: mmorpg },
+  { genre: "MMOARPG", url: "shooter", img: mmoarpg },
+  { genre: "Fighting", url: "shooter", img: fighting },
+  { genre: "MOBA", url: "shooter", img: moba },
+  { genre: "Action Game", url: "shooter", img: action_game },
+  { genre: "Card", url: "shooter", img: card },
+  { genre: "Action", url: "shooter", img: action },
+  { genre: "Sports", url: "shooter", img: sport },
+  { genre: "Racing", url: "shooter", img: racing },
+  { genre: "Card Game", url: "shooter", img: card_game },
+  { genre: "MMO", url: "shooter", img: mmo },
+  { genre: "Social", url: "shooter", img: social },
+  { genre: "Fantasy", url: "shooter", img: fantasy },
 ]);
 </script>
 

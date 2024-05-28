@@ -14,11 +14,9 @@
         class="flex gap-10 items-center max-w-[830px] w-full justify-between"
         :class="{ list_header: expand }"
       >
-        <p class="cursor-pointer">List of games</p>
+        <p @click="$router.push('/')" class="cursor-pointer">Home</p>
         <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
-        <p class="cursor-pointer">New</p>
-        <p class="cursor-pointer">Genre</p>
-        <p class="cursor-pointer">Collections</p>
+        <p @click="$router.push('/genre')" class="cursor-pointer">Genre</p>
       </div>
       <div class="flex flex-col" :class="{ 'expandInpu-active': expand }">
         <div class="flex gap-2 items-center">

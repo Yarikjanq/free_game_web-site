@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/components/Home.vue";
 import MyId from "@/components/game_id/id.vue";
 import Popular from "@/components/popular_games/popular_games.vue"
+import Genre from "@/components/genre/genre.vue"
 const routes = [
     {
         path: '/',
@@ -15,6 +16,11 @@ const routes = [
         path: '/:title/:id',
         component: MyId,
       },
+      {
+        path: '/genre',
+        component: Genre
+        
+      }
 
 ]
 const router = createRouter({
