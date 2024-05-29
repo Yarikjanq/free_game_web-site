@@ -16,7 +16,7 @@
       >
         <p @click="$router.push('/')" class="cursor-pointer">Home</p>
         <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
-        <p @click="$router.push('/genre')" class="cursor-pointer">Genre</p>
+        <p @click="$router.push('/filter')" class="cursor-pointer">Filter</p>
       </div>
       <div class="flex flex-col" :class="{ 'expandInpu-active': expand }">
         <div class="flex gap-2 items-center">

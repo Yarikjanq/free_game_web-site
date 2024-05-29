@@ -17,7 +17,7 @@ const routes = [
         component: MyId,
       },
       {
-        path: '/genre',
+        path: '/filter',
         component: Genre
         
       }
