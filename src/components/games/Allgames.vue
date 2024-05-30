@@ -12,7 +12,10 @@
     } in game_mod"
     :key="id"
   >
-    <div class="bg-[cadetblue] max-w-[365px]">
+    <div
+      @click="showId(id, title)"
+      class="bg-[cadetblue] max-w-[271px] cursor-pointer"
+    >
       <div>
         <img :src="thumbnail" alt="" />
       </div>
@@ -33,12 +36,23 @@
           {{ short_description }}</span
         >
         <div class="flex justify-between items-center">
-          <div class="bg-white cursor-pointer flex w-5 h-5 hover:bg-slate-500">
-            <svg @click="show_id(id)" class="hover-svg">
+          <div
+            :class="{ 'bg-slate-500': isGameSaved(id) }"
+            class="bg-white cursor-pointer flex w-5 h-5 hover:bg-slate-500"
+          >
+            <svg
+              @click.stop="show_id(id)"
+              :class="{ 'hover-svg-bg': isGameSaved(id) }"
+              class="hover-svg"
+            >
               <use :xlink:href="`${plus}#face`"></use>
             </svg>
           </div>
-          <div class="flex justify-end items-center gap-3">
+
+          <div
+            @click.stop
+            class="flex justify-end items-center gap-3 cursor-default"
+          >
             <span class="p-[3px] rounded bg-red-600" v-if="genre">{{
               genre
             }}</span>
@@ -72,7 +86,11 @@
 import windows from "@/assets/images/windows-icon.webp";
 import chrome from "@/assets/images/web.svg";
 import plus from "@/assets/images/plus.svg";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const store = useStore();
 const props = defineProps<{
   game_mod: string[];
 }>();
@@ -100,14 +118,29 @@ const getImages = (image: any) => {
     return "Web Browser";
   }
 };
+const isGameSaved = (id) => {
+  return store.getters.isGameSaved(id);
+};
+const showId = (id: number, title: string) => {
+  store.dispatch("fetchGameById", id).then(() => {
+    router.push(`/${title}/${id}`);
+  });
+};
 
-const show_id = (id: any) => {
-  const qwe = props.game_mod?.find((post: any) => post.id === id);
-  console.log(qwe.id);
+const show_id = (id) => {
+  const qwe = props.game_mod?.find((post) => post.id === id);
+  console.log(qwe);
+  store.dispatch("toggleGame", qwe);
 };
 </script>
 <style>
 .hover-svg:hover {
+  fill: red !important;
+}
+.saved-card {
+  background-color: cadetblue;
+}
+.hover-svg-bg {
   fill: red !important;
 }
 </style>

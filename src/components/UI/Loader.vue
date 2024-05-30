@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-full flex items-center"
   >
     <span class="loader"></span>
   </div>

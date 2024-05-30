@@ -4,10 +4,10 @@ import axios from "axios";
 export function GetId() {
   const get_id = ref([]);
 
-  const GetId = async () => {
+  const GetId = async (id) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_URL}` + "game?id=220",
+        `${import.meta.env.VITE_URL} + game?id=${id}`,
         {
           headers: {
             "X-RapidAPI-Key":

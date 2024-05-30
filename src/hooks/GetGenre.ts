@@ -6,11 +6,11 @@ export function useGetGenre() {
   const genre_data = ref([]);
   const isLoading = ref(false);
 
-  const GetGenre = async (genre) => {
+  const GetGenre = async (platform, genre, sort_by) => {
     isLoading.value = true;
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_URL}games?category=${genre}`,
+        `${import.meta.env.VITE_URL}games?platform=${platform}&category=${genre}&sort-by=${sort_by}`,
         {
           headers: {
             "X-RapidAPI-Key":

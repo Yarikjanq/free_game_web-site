@@ -17,6 +17,15 @@
         <p @click="$router.push('/')" class="cursor-pointer">Home</p>
         <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
         <p @click="$router.push('/filter')" class="cursor-pointer">Filter</p>
+        <div class="flex relative">
+          <p class="cursor-pointer">Saved Games</p>
+          <span
+            class="absolute right-[-11px] top-[-8px]"
+            v-if="saved_games.length > 0"
+          >
+            {{ saved_games.length }}
+          </span>
+        </div>
       </div>
       <div class="flex flex-col" :class="{ 'expandInpu-active': expand }">
         <div class="flex gap-2 items-center">
@@ -100,6 +109,9 @@ const showIdHandler = (id: number, title: string) => {
     router.push(`/${title}/${id}`);
   });
 };
+const saved_games = computed(() => {
+  return store.getters["save_game"];
+});
 </script>
 <style scoped>
 .expandInpu-active {
