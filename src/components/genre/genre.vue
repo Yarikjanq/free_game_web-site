@@ -2,11 +2,7 @@
   <div>
     <div class="flex">
       <p>Platform:</p>
-      <select
-        @change="changePlafroms"
-        class="bg-black"
-        v-model="selected_plaftorm"
-      >
+      <select @change="" class="bg-black" v-model="selected_plaftorm">
         <option class="bg-black" disabled value="">Browse by genre</option>
         <option :value="system" v-for="{ name, system } in platforms">
           {{ name }}
@@ -33,13 +29,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { useGetGenre } from "@/hooks/GetGenre";
-import { useGetPlatform } from "@/hooks/GetGenre";
 import loader from "@/components/UI/Loader.vue";
 import Allgames from "@/components/games/Allgames.vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const { genre_data, isLoading, GetGenre } = useGetGenre();
-const { plaftorm_data, GetPlatform } = useGetPlatform();
+
 const displayedData = ref([]);
 const observer = ref(null);
 const currentPage = ref(1);
@@ -47,30 +42,29 @@ const itemsPerPage = 10;
 const selected_genre = ref();
 const selected_plaftorm = ref();
 const changeGenre = () => {
-  GetGenre(selected_genre.value);
+  currentPage.value = 1;
+  displayedData.value = [];
+  GetGenre(selected_genre.value).then(() => {
+    updateDisplayedData();
+  });
 };
-const changePlafroms = () => {
-  GetPlatform(selected_plaftorm.value);
-};
+
 const updateDisplayedData = () => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  displayedData.value = genre_data.value
-    .slice(start, end)
-    .concat(plaftorm_data.value.slice(start, end));
+  displayedData.value = genre_data.value.slice(start, end);
 };
 
 const loadMore = () => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   displayedData.value = displayedData.value.concat(
-    genre_data.value.slice(start, end),
-    plaftorm_data.value.slice(start, end)
+    genre_data.value.slice(start, end)
   );
   currentPage.value++;
 };
 
-watch([genre_data, plaftorm_data], (newData) => {
+watch([genre_data], (newData) => {
   updateDisplayedData();
 });
 
