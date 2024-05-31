@@ -37,7 +37,7 @@
         >
         <div class="flex justify-between items-center">
           <div
-            :class="{ 'bg-slate-500': isGameSaved(id) }"
+            :class="{ '!bg-slate-500': isGameSaved(id) }"
             class="bg-white cursor-pointer flex w-5 h-5 hover:bg-slate-500"
           >
             <svg
@@ -121,6 +121,7 @@ const getImages = (image: any) => {
 const isGameSaved = (id) => {
   return store.getters.isGameSaved(id);
 };
+
 const showId = (id: number, title: string) => {
   store.dispatch("fetchGameById", id).then(() => {
     router.push(`/${title}/${id}`);

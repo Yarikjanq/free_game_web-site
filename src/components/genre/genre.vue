@@ -98,18 +98,33 @@ const changePlatfrom = () => {
 };
 
 const updateDisplayedData = () => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  displayedData.value = genre_data.value.slice(start, end);
+  if (genre_data.value.length > 0) {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    displayedData.value = genre_data.value.slice(start, end);
+  }
 };
 
 const loadMore = () => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  displayedData.value = displayedData.value.concat(
-    genre_data.value.slice(start, end)
-  );
-  currentPage.value++;
+  if (genre_data.value.length > 0) {
+    const start = currentPage.value * itemsPerPage;
+    const end = start + itemsPerPage;
+    const newItems = genre_data.value.slice(start, end);
+
+    if (newItems.length > 0) {
+      const uniqueItems = newItems.filter(
+        (item) =>
+          !displayedData.value.some(
+            (displayedItem) => displayedItem.id === item.id
+          )
+      );
+
+      if (uniqueItems.length > 0) {
+        displayedData.value = displayedData.value.concat(uniqueItems);
+        currentPage.value++;
+      }
+    }
+  }
 };
 
 watch([genre_data], (newData) => {

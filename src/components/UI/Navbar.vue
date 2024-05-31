@@ -18,7 +18,7 @@
         <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
         <p @click="$router.push('/filter')" class="cursor-pointer">Filter</p>
         <div class="flex relative">
-          <p class="cursor-pointer">Saved Games</p>
+          <p @click="showBar" class="cursor-pointer save_game">Saved Games</p>
           <span
             class="absolute right-[-11px] top-[-8px]"
             v-if="saved_games.length > 0"
@@ -46,6 +46,7 @@
         />
       </div>
     </div>
+    <SavedCardsSiderBar v-show="show_bar" />
   </div>
 </template>
 <script setup lang="ts">
@@ -55,10 +56,11 @@ import searchGames from "../searchGames/searchGames.vue";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import SavedCardsSiderBar from "../SaveCardSiderBar/SavedCardsSidebar.vue";
 const router = useRouter();
 const expand = ref(false);
 const store = useStore();
-
+const show_bar = ref(false);
 const games = computed(() => {
   return store.getters["games"];
 });
@@ -112,6 +114,19 @@ const showIdHandler = (id: number, title: string) => {
 const saved_games = computed(() => {
   return store.getters["save_game"];
 });
+
+const showBar = () => {
+  show_bar.value = !show_bar.value;
+};
+const handleOutsideClickBar = (event) => {
+  const sidebar = document.querySelector(".sidebard");
+  const save_game = document.querySelector(".save_game");
+  console.log(event.target);
+  if (!sidebar?.contains(event.target) && !save_game?.contains(event.target)) {
+    show_bar.value = false;
+  }
+};
+document.addEventListener("click", handleOutsideClickBar);
 </script>
 <style scoped>
 .expandInpu-active {

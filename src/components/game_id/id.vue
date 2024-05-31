@@ -92,15 +92,27 @@
   </div>
   <div class="flex gap-7">
     <div class="" v-for="{ image, id } in game_id.screenshots" :key="id">
-      <img class="w-full h-full rounded-3xl" :src="image" alt="" />
+      <img
+        @click="showLightbox(id)"
+        class="w-full h-full rounded-3xl"
+        :src="image"
+        alt=""
+      />
     </div>
+    <vue-easy-lightbox
+      :visible="visible"
+      :imgs="images"
+      :index="currentIndex"
+      @hide="handleHide"
+    />
   </div>
 </template>
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import loader from "@/components/UI/Loader.vue";
+import VueEasyLightbox from "vue-easy-lightbox";
 const route = useRoute();
 const store = useStore();
 
@@ -110,8 +122,23 @@ const game_id = computed(() => {
 const loader_id = computed(() => {
   return store.getters["isLoading_id"];
 });
-console.log(game_id.value);
+const visible = ref(false);
+const images = ref([]);
+const currentIndex = ref(0);
+const showLightbox = (id) => {
+  images.value = game_id.value.screenshots.map(
+    (screenshot) => screenshot.image
+  );
 
+  currentIndex.value = game_id.value.screenshots.findIndex(
+    (screenshot) => screenshot.id === id
+  );
+  visible.value = true;
+};
+
+const handleHide = () => {
+  visible.value = false;
+};
 onMounted(() => {
   const id = route.params.id;
   store.dispatch("fetchGameById", id);
