@@ -123,9 +123,7 @@ const isGameSaved = (id) => {
 };
 
 const showId = (id: number, title: string) => {
-  store.dispatch("fetchGameById", id).then(() => {
-    router.push(`/${title}/${id}`);
-  });
+  router.push(`/${title}/${id}`);
 };
 
 const show_id = (id) => {
