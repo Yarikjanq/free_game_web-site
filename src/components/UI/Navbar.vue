@@ -15,7 +15,7 @@
         :class="{ list_header: expand }"
       >
         <p @click="$router.push('/')" class="cursor-pointer">Home</p>
-        <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p>
+        <!-- <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p> -->
         <p @click="$router.push('/filter')" class="cursor-pointer">Filter</p>
         <div class="flex relative">
           <p @click="showBar" class="cursor-pointer save_game">Saved Games</p>
@@ -27,7 +27,10 @@
           </span>
         </div>
       </div>
-      <div class="flex flex-col" :class="{ 'expandInpu-active': expand }">
+      <div
+        class="flex flex-col relative"
+        :class="{ 'expandInpu-active': expand }"
+      >
         <div class="flex gap-2 items-center">
           <img class="w-5" :src="search" alt="" />
 
@@ -38,6 +41,12 @@
             class="w-full search-input text-white rounded-xl"
             :class="{ 'expandInpu-input-active': expand }"
           />
+          <div
+            v-if="empty_input"
+            class="absolute h-fit top-8 left-8 text-white font-extrabold w-max"
+          >
+            Could not find anything
+          </div>
         </div>
         <searchGames
           @showId="showIdHandler"
@@ -46,7 +55,7 @@
         />
       </div>
     </div>
-    <SavedCardsSiderBar v-show="show_bar" />
+    <SavedCardsSiderBar :show_bar="show_bar" @closeSidebar="closeSidebar" />
   </div>
 </template>
 <script setup lang="ts">
@@ -61,6 +70,7 @@ const router = useRouter();
 const expand = ref(false);
 const store = useStore();
 const show_bar = ref(false);
+const empty_input = ref(false);
 const games = computed(() => {
   return store.getters["games"];
 });
@@ -95,11 +105,18 @@ const handleOutsideClick = (event) => {
   }
 };
 const filteredGames = computed(() => {
+  empty_input.value = false;
   if (search_game.value) {
     const searchTerm = search_game.value.toLowerCase();
-    return games.value.filter((game) => {
+
+    const filtered = games.value.filter((game) => {
       return game.title.toLowerCase().includes(searchTerm);
     });
+    if (filtered.length === 0) {
+      empty_input.value = true;
+    }
+
+    return filtered;
   } else {
     return games.value;
   }
@@ -118,10 +135,14 @@ const saved_games = computed(() => {
 const showBar = () => {
   show_bar.value = !show_bar.value;
 };
+
+const closeSidebar = (value) => {
+  show_bar.value = value;
+};
 const handleOutsideClickBar = (event) => {
-  const sidebar = document.querySelector(".sidebard");
+  const sidebar = document.querySelector(".sidebar-open");
   const save_game = document.querySelector(".save_game");
-  console.log(event.target);
+  // console.log(event.target);
   if (!sidebar?.contains(event.target) && !save_game?.contains(event.target)) {
     show_bar.value = false;
   }
