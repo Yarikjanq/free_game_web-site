@@ -1,7 +1,9 @@
 import { onMounted, ref } from "vue";
 import axios from "axios";
+import { defineStore } from "pinia"
 
-export function GetInfo() {
+export const useGetGames = defineStore("useGetGames", () => {
+
   const get_info = ref([]);
   const isLoading = ref(true); 
   const GetInfo = async () => {
@@ -27,6 +29,18 @@ export function GetInfo() {
     }
   };
 
-  onMounted(GetInfo);
-  return { get_info, isLoading  };
+  onMounted(() => {
+    GetInfo()
+  })
+
+
+
+return {
+  GetInfo, 
+  get_info,
+  isLoading
 }
+
+
+})
+

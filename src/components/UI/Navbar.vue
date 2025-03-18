@@ -20,10 +20,10 @@
         <div class="flex relative">
           <p @click="showBar" class="cursor-pointer save_game">Saved Games</p>
           <span
+            v-if="savedGames.length > 0"
             class="absolute right-[-11px] top-[-8px]"
-            v-if="saved_games.length > 0"
           >
-            {{ saved_games.length }}
+            {{ savedGames.length }}
           </span>
         </div>
       </div>
@@ -62,22 +62,20 @@
 import logo from "@/assets/images/logo.jpg";
 import search from "@/assets/images/search.svg";
 import searchGames from "../searchGames/searchGames.vue";
-import { computed, onMounted, ref } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { computed, ref } from "vue";
+import { useGetGames } from "@/hooks/GetInfo";
 import SavedCardsSiderBar from "../SaveCardSiderBar/SavedCardsSidebar.vue";
-const router = useRouter();
+import { useSaveGames } from "@/store/saveGames";
+import { storeToRefs } from "pinia";
+
+const savedGamesLenght = useSaveGames();
+const { savedGames } = storeToRefs(savedGamesLenght);
 const expand = ref(false);
-const store = useStore();
+
 const show_bar = ref(false);
 const empty_input = ref(false);
-const games = computed(() => {
-  return store.getters["games"];
-});
+const getAllGames = useGetGames();
 
-onMounted(() => {
-  store.dispatch("fetchGames");
-});
 const search_game = ref("");
 const expandInput = () => {
   expand.value = true;
@@ -109,7 +107,7 @@ const filteredGames = computed(() => {
   if (search_game.value) {
     const searchTerm = search_game.value.toLowerCase();
 
-    const filtered = games.value.filter((game) => {
+    const filtered = getAllGames.get_info.filter((game) => {
       return game.title.toLowerCase().includes(searchTerm);
     });
     if (filtered.length === 0) {
@@ -118,19 +116,16 @@ const filteredGames = computed(() => {
 
     return filtered;
   } else {
-    return games.value;
+    return getAllGames.get_info;
   }
 });
 const showIdHandler = (id: number, title: string) => {
   expand.value = false;
   search_game.value = "";
-  store.dispatch("fetchGameById", id).then(() => {
-    router.push(`/${title}/${id}`);
-  });
+  // store.dispatch("fetchGameById", id).then(() => {
+  //   router.push(`/${title}/${id}`);
+  // });
 };
-const saved_games = computed(() => {
-  return store.getters["save_game"];
-});
 
 const showBar = () => {
   show_bar.value = !show_bar.value;

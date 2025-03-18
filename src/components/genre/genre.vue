@@ -42,7 +42,7 @@
     <Allgames :game_mod="displayedData" />
   </div>
   <div ref="observer" class="w-full h-10"></div>
-  <div v-if="isLoading" class="mt-4">
+  <div v-if="useSaveGenge.isLoading" class="mt-4">
     <loader />
   </div>
 </template>
@@ -54,7 +54,7 @@ import loader from "@/components/UI/Loader.vue";
 import Allgames from "@/components/games/Allgames.vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
-const { genre_data, isLoading, GetGenre } = useGetGenre();
+const useSaveGenge = useGetGenre();
 
 const displayedData = ref([]);
 const observer = ref(null);
@@ -66,50 +66,56 @@ const selected_plaftorm = ref();
 const changeGenre = () => {
   currentPage.value = 1;
   displayedData.value = [];
-  GetGenre(
-    selected_plaftorm.value,
-    selected_genre.value,
-    selected_sort_by.value
-  ).then(() => {
-    updateDisplayedData();
-  });
+  useSaveGenge
+    .GetGenre(
+      selected_plaftorm.value,
+      selected_genre.value,
+      selected_sort_by.value
+    )
+    .then(() => {
+      updateDisplayedData();
+    });
 };
 const changeSortBy = () => {
   currentPage.value = 1;
   displayedData.value = [];
-  GetGenre(
-    selected_plaftorm.value,
-    selected_genre.value,
-    selected_sort_by.value
-  ).then(() => {
-    updateDisplayedData();
-  });
+  useSaveGenge
+    .GetGenre(
+      selected_plaftorm.value,
+      selected_genre.value,
+      selected_sort_by.value
+    )
+    .then(() => {
+      updateDisplayedData();
+    });
 };
 const changePlatfrom = () => {
   currentPage.value = 1;
   displayedData.value = [];
-  GetGenre(
-    selected_plaftorm.value,
-    selected_genre.value,
-    selected_sort_by.value
-  ).then(() => {
-    updateDisplayedData();
-  });
+  useSaveGenge
+    .GetGenre(
+      selected_plaftorm.value,
+      selected_genre.value,
+      selected_sort_by.value
+    )
+    .then(() => {
+      updateDisplayedData();
+    });
 };
 
 const updateDisplayedData = () => {
-  if (genre_data.value.length > 0) {
+  if (useSaveGenge.genre_data.length > 0) {
     const start = (currentPage.value - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    displayedData.value = genre_data.value.slice(start, end);
+    displayedData.value = useSaveGenge.genre_data.slice(start, end);
   }
 };
 
 const loadMore = () => {
-  if (genre_data.value.length > 0) {
+  if (useSaveGenge.genre_data.length > 0) {
     const start = currentPage.value * itemsPerPage;
     const end = start + itemsPerPage;
-    const newItems = genre_data.value.slice(start, end);
+    const newItems = useSaveGenge.genre_data.slice(start, end);
 
     if (newItems.length > 0) {
       const uniqueItems = newItems.filter(
@@ -127,13 +133,12 @@ const loadMore = () => {
   }
 };
 
-watch([genre_data], (newData) => {
+watch([useSaveGenge.genre_data], (newData) => {
   updateDisplayedData();
 });
-
-onMounted(() => {
+onMounted(async () => {
   const observerInstance = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !isLoading.value) {
+    if (entries[0].isIntersecting && !useSaveGenge.isLoading) {
       loadMore();
     }
   });
@@ -147,7 +152,11 @@ onMounted(() => {
   selected_genre.value = genre;
   selected_plaftorm.value = platform;
   selected_sort_by.value = sort_by;
-  GetGenre(platform, genre, sort_by);
+  console.log("🟡 Викликаємо GetGenre:", { platform, genre, sort_by });
+
+  await useSaveGenge.GetGenre(platform, genre, sort_by);
+
+  updateDisplayedData();
 });
 const genres = {
   mmorpg: "MMORPG",

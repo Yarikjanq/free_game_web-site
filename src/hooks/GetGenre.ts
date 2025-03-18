@@ -1,12 +1,15 @@
 // src/hooks/GetGenre.ts
-import { ref } from "vue";
+import {  ref } from "vue";
 import axios from "axios";
+import { defineStore } from "pinia"
 
-export function useGetGenre() {
+
+export const useGetGenre = defineStore("useGetGenre", ()=> {
+
   const genre_data = ref([]);
   const isLoading = ref(false);
 
-  const GetGenre = async (platform, genre, sort_by) => {
+  const GetGenre = async (platform: any, genre, sort_by) => {
     isLoading.value = true;
     try {
       const response = await axios.get(
@@ -21,6 +24,8 @@ export function useGetGenre() {
       );
       genre_data.value = response.data;
 
+      
+        
     } catch (e) {
       console.error(e);
     } finally {
@@ -28,5 +33,8 @@ export function useGetGenre() {
     }
   };
 
+
   return { genre_data, isLoading, GetGenre };
-}
+
+  
+})

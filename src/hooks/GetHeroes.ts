@@ -1,13 +1,18 @@
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 
-export function GetId() {
-  const get_id = ref([]);
+import { defineStore  } from "pinia"
 
+
+export const useGetIdHeroes = defineStore("useGetIdHeroes", () => {
+
+  const get_id = ref([]);
+  const isLoading = ref(false)
   const GetId = async (id) => {
     try {
+      isLoading.value = true
       const response = await axios.get(
-        `${import.meta.env.VITE_URL} + game?id=${id}`,
+        `${import.meta.env.VITE_URL}game?id=${id}`,
         {
           headers: {
             "X-RapidAPI-Key":
@@ -18,14 +23,16 @@ export function GetId() {
       );
       get_id.value = response.data;
       console.log(response.data); 
-
+      isLoading.value = false
     } catch (e) {
 
         console.log(e);
- 
+        isLoading.value = false
     }
   };
 
-  onMounted(GetId);
-  return { get_id  };
-}
+
+  return { get_id, GetId, isLoading  };
+
+  
+})

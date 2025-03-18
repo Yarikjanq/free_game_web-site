@@ -37,12 +37,12 @@
         >
         <div class="flex justify-between items-center">
           <div
-            :class="{ '!bg-slate-500': isGameSaved(id) }"
+            :class="isSavedGames(id) ? 'bg-slate-500  hover:bg-white' : ''"
             class="bg-white cursor-pointer flex w-5 h-5 hover:bg-slate-500"
           >
             <svg
               @click.stop="show_id(id)"
-              :class="{ 'hover-svg-bg': isGameSaved(id) }"
+              :class="isSavedGames(id) ? 'hover-svg-bg hover-bg__active' : ''"
               class="hover-svg"
             >
               <use :xlink:href="`${plus}#face`"></use>
@@ -87,10 +87,17 @@ import windows from "@/assets/images/windows-icon.webp";
 import chrome from "@/assets/images/web.svg";
 import plus from "@/assets/images/plus.svg";
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { useSaveGames } from "@/store/saveGames";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 const router = useRouter();
-const store = useStore();
+
+const saveAllGames = useSaveGames();
+const { savedGames } = storeToRefs(saveAllGames);
+
+const asd = computed(() => savedGames.value);
+console.log(asd);
+
 const props = defineProps<{
   game_mod: string[];
 }>();
@@ -118,8 +125,9 @@ const getImages = (image: any) => {
     return "Web Browser";
   }
 };
-const isGameSaved = (id) => {
-  return store.getters.isGameSaved(id);
+
+const isSavedGames = (game) => {
+  return savedGames.value.some((games) => games.id === game);
 };
 
 const showId = (id: number, title: string) => {
@@ -128,8 +136,7 @@ const showId = (id: number, title: string) => {
 
 const show_id = (id) => {
   const qwe = props.game_mod?.find((post) => post.id === id);
-  console.log(qwe);
-  store.dispatch("toggleGame", qwe);
+  saveAllGames.toggleGames(qwe);
 };
 </script>
 <style>
@@ -141,5 +148,8 @@ const show_id = (id) => {
 }
 .hover-svg-bg {
   fill: red !important;
+}
+.hover-bg__active:hover {
+  fill: black !important;
 }
 </style>

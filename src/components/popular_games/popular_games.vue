@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import { GetPopular } from "@/hooks/GetPopular";
-import { GetInfo } from "@/hooks/GetInfo";
 import popular_img from "@/assets/images/popular.jpg";
 import Loader from "@/components/UI/Loader.vue";
 import Allgames from "@/components/games/Allgames.vue";

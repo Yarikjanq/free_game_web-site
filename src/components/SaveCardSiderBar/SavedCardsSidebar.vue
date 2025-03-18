@@ -10,8 +10,8 @@
     <div class="flex flex-col gap-6 p-2">
       <div
         class="flex justify-between bg-[darkcyan] gap-14 rounded-xl"
-        v-if="saved_games.length > 0"
-        v-for="{ title, id, thumbnail, genre } in saved_games"
+        v-if="savedGames.length > 0"
+        v-for="{ title, id, thumbnail, genre } in savedGames"
         :key="id"
       >
         <img :src="thumbnail" alt="img" class="w-[40%] rounded-s-xl" />
@@ -21,7 +21,7 @@
             <span class="p-[3px] rounded bg-red-600 w-max">{{ genre }}</span>
           </div>
           <button
-            @click.stop="show_id(id)"
+            @click.stop="deletePost(id)"
             class="text-white mr-8 h-max relative top-4"
           >
             X
@@ -40,21 +40,16 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-
-import { useStore } from "vuex";
-const store = useStore();
-const saved_games = computed(() => {
-  return store.getters["save_game"];
-});
-console.log(saved_games.value);
+import { useSaveGames } from "@/store/saveGames";
+import { storeToRefs } from "pinia";
+const deleteGames = useSaveGames();
+const { savedGames } = storeToRefs(deleteGames);
 
 const props = defineProps({
   show_bar: Boolean,
 });
-const show_id = (id) => {
-  const qwe = saved_games.value?.find((post) => post.id === id);
-  console.log(qwe);
-  store.dispatch("toggleGame", qwe);
+const deletePost = (id) => {
+  deleteGames.toggleGames({ id });
 };
 const emit = defineEmits(["closeSidebar"]);
 const closeSidebar = (show_bar) => {
