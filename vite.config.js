@@ -11,4 +11,7 @@ export default defineConfig({
     },
   },
   base: "/free_game_web-site/",
+  build: {
+    outDir: "dist",
+  },
 });
