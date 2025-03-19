@@ -10,10 +10,5 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-<<<<<<< HEAD
   base: "/free_game_web-site/",
 });
-=======
-  base: '' 
-})
->>>>>>> 498a0e8 (asdadsa)

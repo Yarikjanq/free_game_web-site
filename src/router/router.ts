@@ -27,7 +27,7 @@ const router = createRouter({
     routes,
     history: createWebHistory(),
     scrollBehavior(to, from, savedPosition) {
-      return { top: 0 }; // Прокручує сторінку наверх при кожному переході
+      return { top: 0 };
     },
 })
 export default router;
