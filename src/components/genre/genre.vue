@@ -152,7 +152,6 @@ onMounted(async () => {
   selected_genre.value = genre;
   selected_plaftorm.value = platform;
   selected_sort_by.value = sort_by;
-  console.log("🟡 Викликаємо GetGenre:", { platform, genre, sort_by });
 
   await useSaveGenge.GetGenre(platform, genre, sort_by);
 

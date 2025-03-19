@@ -37,8 +37,8 @@
         >
         <div class="flex justify-between items-center">
           <div
-            :class="isSavedGames(id) ? 'bg-slate-500  hover:bg-white' : ''"
-            class="bg-white cursor-pointer flex w-5 h-5 hover:bg-slate-500"
+            :class="isSavedGames(id) ? 'bg-slate-500' : 'bg-white'"
+            class="cursor-pointer flex w-5 h-5"
           >
             <svg
               @click.stop="show_id(id)"
@@ -140,16 +140,16 @@ const show_id = (id) => {
 };
 </script>
 <style>
-.hover-svg:hover {
-  fill: red !important;
-}
+/* .hover-svg:hover {
+  fill: red;
+} */
 .saved-card {
   background-color: cadetblue;
 }
 .hover-svg-bg {
-  fill: red !important;
+  fill: red;
 }
-.hover-bg__active:hover {
-  fill: black !important;
-}
+/* .hover-bg__active:hover {
+  fill: black;
+} */
 </style>

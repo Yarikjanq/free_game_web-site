@@ -14,11 +14,33 @@
         class="flex gap-10 items-center max-w-[830px] w-full justify-between"
         :class="{ list_header: expand }"
       >
-        <p @click="$router.push('/')" class="cursor-pointer">Home</p>
+        <p
+          @click="$router.push('/')"
+          class="cursor-pointer"
+          :class="{
+            'underline decoration-2': $route.path === '/',
+          }"
+        >
+          Home
+        </p>
         <!-- <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p> -->
-        <p @click="$router.push('/filter')" class="cursor-pointer">Filter</p>
+        <p
+          @click="$router.push('/filter')"
+          class="cursor-pointer"
+          :class="{
+            'underline decoration-2': $route.path === '/filter' && !show_bar,
+          }"
+        >
+          Filter
+        </p>
         <div class="flex relative">
-          <p @click="showBar" class="cursor-pointer save_game">Saved Games</p>
+          <p
+            @click="showBar"
+            class="cursor-pointer save_game"
+            :class="{ 'underline decoration-2': show_bar }"
+          >
+            Saved Games
+          </p>
           <span
             v-if="savedGames.length > 0"
             class="absolute right-[-11px] top-[-8px]"
@@ -67,6 +89,7 @@ import { useGetGames } from "@/hooks/GetInfo";
 import SavedCardsSiderBar from "../SaveCardSiderBar/SavedCardsSidebar.vue";
 import { useSaveGames } from "@/store/saveGames";
 import { storeToRefs } from "pinia";
+import router from "@/router/router";
 
 const savedGamesLenght = useSaveGames();
 const { savedGames } = storeToRefs(savedGamesLenght);
@@ -122,9 +145,7 @@ const filteredGames = computed(() => {
 const showIdHandler = (id: number, title: string) => {
   expand.value = false;
   search_game.value = "";
-  // store.dispatch("fetchGameById", id).then(() => {
-  //   router.push(`/${title}/${id}`);
-  // });
+  router.push(`/${title}/${id}`);
 };
 
 const showBar = () => {
