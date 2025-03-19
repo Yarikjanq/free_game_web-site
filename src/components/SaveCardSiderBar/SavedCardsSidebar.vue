@@ -41,18 +41,22 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { useSaveGames } from "@/store/saveGames";
 import { storeToRefs } from "pinia";
 const deleteGames = useSaveGames();
 const { savedGames } = storeToRefs(deleteGames);
 
-const props = defineProps({
+const { show_bar } = defineProps({
   show_bar: Boolean,
 });
-const deletePost = (id) => {
-  deleteGames.toggleGames({ id });
+const deletePost = (id: number) => {
+  const gameToDelete = savedGames.value.find((game) => game.id === id);
+
+  if (gameToDelete) {
+    deleteGames.toggleGames(gameToDelete);
+  }
 };
+
 const emit = defineEmits(["closeSidebar"]);
 const closeSidebar = (show_bar) => {
   emit("closeSidebar", show_bar);

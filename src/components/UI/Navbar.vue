@@ -23,7 +23,6 @@
         >
           Home
         </p>
-        <!-- <p @click="$router.push('/popular')" class="cursor-pointer">Popular</p> -->
         <p
           @click="$router.push('/filter')"
           class="cursor-pointer"
@@ -90,7 +89,7 @@ import SavedCardsSiderBar from "../SaveCardSiderBar/SavedCardsSidebar.vue";
 import { useSaveGames } from "@/store/saveGames";
 import { storeToRefs } from "pinia";
 import router from "@/router/router";
-
+import type { Game } from "@/types/Game";
 const savedGamesLenght = useSaveGames();
 const { savedGames } = storeToRefs(savedGamesLenght);
 const expand = ref(false);
@@ -130,7 +129,7 @@ const filteredGames = computed(() => {
   if (search_game.value) {
     const searchTerm = search_game.value.toLowerCase();
 
-    const filtered = getAllGames.get_info.filter((game) => {
+    const filtered = getAllGames.get_info.filter((game: Game) => {
       return game.title.toLowerCase().includes(searchTerm);
     });
     if (filtered.length === 0) {
@@ -142,7 +141,7 @@ const filteredGames = computed(() => {
     return getAllGames.get_info;
   }
 });
-const showIdHandler = (id: number, title: string) => {
+const showIdHandler = (title: string, id: number) => {
   expand.value = false;
   search_game.value = "";
   router.push(`/${title}/${id}`);

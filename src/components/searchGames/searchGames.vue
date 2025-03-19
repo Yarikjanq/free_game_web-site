@@ -14,14 +14,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-const router = useRouter();
-const props = defineProps<{
-  games: string[];
+import type { Game } from "@/types/Game";
+const { games, search_game } = defineProps<{
+  games: Game[];
   search_game: string;
 }>();
 const emit = defineEmits(["showId"]);
-const emitShowId = (id: number, title: string) => {
+const emitShowId = (title: string, id: number) => {
   emit("showId", title, id);
 };
 </script>

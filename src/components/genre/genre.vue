@@ -53,10 +53,11 @@ import { useGetGenre } from "@/hooks/GetGenre";
 import loader from "@/components/UI/Loader.vue";
 import Allgames from "@/components/games/Allgames.vue";
 import { useRoute } from "vue-router";
+import type { Game } from "@/types/Game";
 const route = useRoute();
 const useSaveGenge = useGetGenre();
 
-const displayedData = ref([]);
+const displayedData = ref<Game[]>([]);
 const observer = ref(null);
 const currentPage = ref(1);
 const itemsPerPage = 10;
@@ -146,9 +147,15 @@ onMounted(async () => {
     observerInstance.observe(observer.value);
   }
 
-  const genre = route.params.genre || "MMORPG";
-  const platform = route.params.genre || "pc";
-  const sort_by = route.params.genre || "relevance";
+  const genre = Array.isArray(route.params.platform)
+    ? route.params.platform[0]
+    : route.params.platform || "MMORPG";
+  const platform = Array.isArray(route.params.platform)
+    ? route.params.platform[0]
+    : route.params.platform || "pc";
+  const sort_by = Array.isArray(route.params.platform)
+    ? route.params.platform[0]
+    : route.params.platform || "relevance";
   selected_genre.value = genre;
   selected_plaftorm.value = platform;
   selected_sort_by.value = sort_by;

@@ -1,34 +1,31 @@
 import { defineStore } from "pinia";
 import { onMounted, ref } from "vue";
-    export const useSaveGames = defineStore("saveProductStore", () => {
-        let savedGames = ref([]);
-        const loadSavedGames = () => {
-            savedGames.value = JSON.parse(localStorage.getItem("games") || "[]");
-          };
-          const toggleGames  = (fruit) => {
-            savedGames.value = JSON.parse(localStorage.getItem("games") || "[]");
-    
-            const isFavourite = savedGames.value?.some((item) => item.id === fruit.id);
-          
-            if (isFavourite) {
-                savedGames.value = savedGames.value.filter(
-                (item) => item.id !== fruit.id
-              );
-         
-            } else { 
-                savedGames.value?.push(fruit);
-    
-            }
-            localStorage.setItem("games", JSON.stringify(savedGames.value));
-       
-          }
-   
-          onMounted(() => {
-            loadSavedGames()
-          })
+import type { Game } from "@/types/Game";
 
-          return{
-            toggleGames,
-            savedGames
-          }
-    })
+export const useSaveGames = defineStore("saveProductStore", () => {
+  const savedGames = ref<Game[]>([]);
+
+  const loadSavedGames = (): void => {
+    const storedGames = localStorage.getItem("games");
+    savedGames.value = storedGames ? JSON.parse(storedGames) : [];
+  };
+
+  const toggleGames = (game: Game): void => {
+    const index = savedGames.value.findIndex((item) => item.id === game.id);
+
+    if (index !== -1) {
+      savedGames.value.splice(index, 1);
+    } else {
+      savedGames.value.push(game);
+    }
+
+    localStorage.setItem("games", JSON.stringify(savedGames.value));
+  };
+
+  onMounted(loadSavedGames);
+
+  return {
+    toggleGames,
+    savedGames
+  };
+});

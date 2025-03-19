@@ -5,7 +5,6 @@
       title,
       id,
       thumbnail,
-      developer,
       short_description,
       platform,
       genre,
@@ -37,16 +36,20 @@
         >
         <div class="flex justify-between items-center">
           <div
-            :class="isSavedGames(id) ? 'bg-slate-500' : 'bg-white'"
-            class="cursor-pointer flex w-5 h-5"
+            :class="isSavedGames(id) ? 'border-red-700' : 'border-green-600'"
+            class="cursor-pointer flex solid border-[3px]"
           >
-            <svg
+            <div
               @click.stop="show_id(id)"
-              :class="isSavedGames(id) ? 'hover-svg-bg hover-bg__active' : ''"
-              class="hover-svg"
+              :class="
+                isSavedGames(id)
+                  ? 'hover-svg-bg hover-bg__active text-red-700'
+                  : 'text-green-600'
+              "
+              class="hover-svg font-extrabold"
             >
-              <use :xlink:href="`${plus}#face`"></use>
-            </svg>
+              {{ isSavedGames(id) ? "DELETE" : "ADD" }}
+            </div>
           </div>
 
           <div
@@ -85,11 +88,11 @@
 <script setup lang="ts">
 import windows from "@/assets/images/windows-icon.webp";
 import chrome from "@/assets/images/web.svg";
-import plus from "@/assets/images/plus.svg";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useSaveGames } from "@/store/saveGames";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import type { Game } from "@/types/Game";
 const router = useRouter();
 
 const saveAllGames = useSaveGames();
@@ -99,7 +102,7 @@ const asd = computed(() => savedGames.value);
 console.log(asd);
 
 const props = defineProps<{
-  game_mod: string[];
+  game_mod: Game[];
 }>();
 
 const image_platform = (platform: any) => {
@@ -134,7 +137,7 @@ const showId = (id: number, title: string) => {
   router.push(`/${title}/${id}`);
 };
 
-const show_id = (id) => {
+const show_id = (id: number) => {
   const qwe = props.game_mod?.find((post) => post.id === id);
   saveAllGames.toggleGames(qwe);
 };

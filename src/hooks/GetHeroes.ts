@@ -2,13 +2,13 @@ import { ref } from "vue";
 import axios from "axios";
 
 import { defineStore  } from "pinia"
-
+import type { Game } from "@/types/Game";
 
 export const useGetIdHeroes = defineStore("useGetIdHeroes", () => {
 
-  const get_id = ref([]);
+  const get_id = ref<Game[]>([]);
   const isLoading = ref(false)
-  const GetId = async (id) => {
+  const GetId = async (id: Game) => {
     try {
       isLoading.value = true
       const response = await axios.get(

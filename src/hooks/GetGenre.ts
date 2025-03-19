@@ -2,14 +2,14 @@
 import {  ref } from "vue";
 import axios from "axios";
 import { defineStore } from "pinia"
-
+import type { Game } from "@/types/Game";
 
 export const useGetGenre = defineStore("useGetGenre", ()=> {
 
-  const genre_data = ref([]);
+  const genre_data = ref<Game[]>([]);
   const isLoading = ref(false);
 
-  const GetGenre = async (platform: any, genre, sort_by) => {
+  const GetGenre = async (platform: string, genre: string, sort_by: string) => {
     isLoading.value = true;
     try {
       const response = await axios.get(

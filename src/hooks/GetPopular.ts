@@ -1,8 +1,8 @@
 import { onMounted, ref } from "vue";
 import axios from "axios";
-
+import type { Game } from "@/types/Game";
 export function GetPopular() {
-  const get_popular = ref([]);
+  const get_popular = ref<Game[]>([]);
   const isLoading = ref(true); 
   const GetPopular = async () => {
     try {

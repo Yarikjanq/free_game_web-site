@@ -7,7 +7,7 @@
 
     <category :category="getAllGames.get_info" />
     <MainAllGames />
-    <popular />
+
     <collections />
     <!-- <Allgames :game_mod="get_info" /> -->
   </div>
@@ -19,7 +19,7 @@ import category from "@/components/games/category/category.vue";
 import loader from "@/components/UI/Loader.vue";
 import MainAllGames from "./games/MainAllGames.vue";
 import carousel from "./carousel/carousel.vue";
-import popular from "@/components/games/popular/popular.vue";
+
 import collections from "@/components/games/collections/collections.vue";
 import { useGetGames } from "@/hooks/GetInfo";
 
