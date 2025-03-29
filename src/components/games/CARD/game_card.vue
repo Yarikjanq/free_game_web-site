@@ -22,7 +22,12 @@
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps<{
-  card_img: string;
+interface Collection {
+  title: string;
+  img: string;
+}
+
+const { card_img } = defineProps<{
+  card_img: Collection[];
 }>();
 </script>

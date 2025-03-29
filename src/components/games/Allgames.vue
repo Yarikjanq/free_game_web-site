@@ -139,7 +139,9 @@ const showId = (id: number, title: string) => {
 
 const show_id = (id: number) => {
   const qwe = props.game_mod?.find((post) => post.id === id);
-  saveAllGames.toggleGames(qwe);
+  if (qwe) {
+    saveAllGames.toggleGames(qwe);
+  }
 };
 </script>
 <style>

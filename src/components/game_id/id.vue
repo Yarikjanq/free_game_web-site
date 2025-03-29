@@ -126,7 +126,7 @@ const getHeroId = useGetIdHeroes();
 const { get_id, isLoading } = storeToRefs(getHeroId);
 
 const visible = ref(false);
-const images = ref([]);
+const images = ref({});
 const currentIndex = ref(0);
 const showLightbox = (id) => {
   images.value = get_id.value.screenshots.map((screenshot) => screenshot.image);
@@ -143,6 +143,8 @@ const handleHide = () => {
 onMounted(() => {
   const id = route.params.id;
 
-  getHeroId.GetId(id);
+  if (typeof id === "number") {
+    getHeroId.GetId(id);
+  }
 });
 </script>

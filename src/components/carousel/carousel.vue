@@ -46,31 +46,34 @@ import GenshinImpact from "@/assets/images/GenshinImpact.jpg";
 import pubg from "@/assets/images/pubg.avif";
 import gta from "@/assets/images/gta.webp";
 import { ref } from "vue";
-const props = defineProps<{
-  carousel: string[];
-}>();
+
 const carousel_img = ref([
   {
+    id: 1,
     name: "Dota 2",
     desc: "Valve's premiere competitive free to play MOBA.",
     img: dota2,
   },
   {
+    id: 2,
     name: "Counter Strike 2",
     desc: "This is the largest technological leap in the history of the series, providing the game with new features and content for years to come.",
     img: cs2,
   },
   {
+    id: 3,
     name: "Genshin Impact",
     desc: "Adventure role-playing game with an open world. You have to explore the magical world of Teyvat.",
     img: GenshinImpact,
   },
   {
+    id: 4,
     name: "Pubg Battlegrounds",
     desc: "Is a battle royale that pits 100 players against each other. Outplay your opponents to become the lone survivor. Play free now!",
     img: pubg,
   },
   {
+    id: 5,
     name: "Grand Theft Auto V",
     desc: "Pull off risky heists, take part in extreme stunt races, compete in unique adversarial modes and meet other players in various social spaces,",
     img: gta,

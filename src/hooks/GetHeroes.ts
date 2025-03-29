@@ -6,7 +6,28 @@ import type { Game } from "@/types/Game";
 
 export const useGetIdHeroes = defineStore("useGetIdHeroes", () => {
 
-  const get_id = ref<Game[]>([]);
+  const get_id = ref<Game>({
+    id: 0,
+    title: "",
+    short_description: "",
+    genre: "",
+    platform: "",
+    publisher: "",
+    developer: "",
+    description: "",
+    release_date: "",
+    thumbnail: "",
+    game_url: "",
+    freetogame_profile_url: "",
+    screenshots: [],
+    minimum_system_requirements: {
+      graphics: "",
+      memory: "",
+      os: "",
+      processor: "",
+      storage: ""
+    }
+  });
   const isLoading = ref(false)
   const GetId = async (id: Game) => {
     try {

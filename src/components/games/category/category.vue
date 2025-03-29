@@ -11,7 +11,7 @@
       :items-to-scroll="1"
       :transition="500"
     >
-      <Slide v-for="({ genre, img, url }, index) in genre_game" :key="index">
+      <Slide v-for="({ genre, img }, index) in genre_game" :key="index">
         <div class="relative h-full w-full">
           <div
             class="carousel__item absolute bottom-3 font-medium left-0 right-0 z-[1] text-white text-xl"
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { Carousel, Pagination, Slide, Navigation } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import shooter from "@/assets/images/shooter.jpg";
@@ -52,9 +52,6 @@ import racing from "@/assets/images/racing.avif";
 import mmo from "@/assets/images/mmo.jpg";
 import social from "@/assets/images/social.jpg";
 import icon from "@/assets/images/right-arrow.svg";
-const props = defineProps<{
-  category: string[];
-}>();
 
 const settings = ref({
   itemsToShow: 3,

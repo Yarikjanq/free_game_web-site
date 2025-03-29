@@ -15,7 +15,11 @@ import team from "@/assets/images/team.jpg";
 import open_world from "@/assets/images/open-world.jpg";
 import zombi from "@/assets/images/zombi.jpg";
 import { ref } from "vue";
-const popular_games = ref([
+interface Collection {
+  title: string;
+  img: string;
+}
+const popular_games = ref<Collection[]>([
   { title: "Games for two", img: team },
   { title: "Open world", img: open_world },
   { title: "Zombie games", img: zombi },
