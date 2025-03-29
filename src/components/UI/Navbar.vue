@@ -1,5 +1,8 @@
 <template>
-  <div class="border-b border-solid py-2 flex justify-between">
+  <div>
+    <Burger @showBar="showBar" />
+  </div>
+  <div class="border-b border-solid py-2 flex justify-between px-5">
     <img
       @click="$router.push('/')"
       :src="logo"
@@ -7,11 +10,11 @@
       class="w-[57px] cursor-pointer"
     />
     <div
-      class="flex items-center gap-10"
+      class="max-[650px]:w-full flex items-center gap-10"
       :class="{ 'expandInpu-block-active': expand }"
     >
       <div
-        class="flex gap-10 items-center max-w-[830px] w-full justify-between"
+        class="max-[630px]:hidden flex gap-10 items-center max-w-[830px] w-full justify-between"
         :class="{ list_header: expand }"
       >
         <p
@@ -49,22 +52,24 @@
         </div>
       </div>
       <div
-        class="flex flex-col relative"
+        class="max-[650px]:absolute max-[650px]:right-14 flex flex-col relative"
         :class="{ 'expandInpu-active': expand }"
       >
         <div class="flex gap-2 items-center">
-          <img class="w-5" :src="search" alt="" />
+          <img class="w-5 max-[630px]:hidden" :src="search" alt="" />
 
           <input
             v-model="search_game"
             @click="expandInput"
             type="search"
             class="w-full search-input text-white rounded-xl"
-            :class="{ 'expandInpu-input-active': expand }"
+            :class="{
+              'expandInpu-input-active expandInpu-input__border': expand,
+            }"
           />
           <div
             v-if="empty_input"
-            class="absolute h-fit top-8 left-8 text-white font-extrabold w-max"
+            class="absolute h-fit top-8 max-[640px]:top-[50px] left-8 text-white font-extrabold w-max"
           >
             Could not find anything
           </div>
@@ -86,6 +91,7 @@ import searchGames from "../searchGames/searchGames.vue";
 import { computed, ref } from "vue";
 import { useGetGames } from "@/hooks/GetInfo";
 import SavedCardsSiderBar from "../SaveCardSiderBar/SavedCardsSidebar.vue";
+import Burger from "@/components/UI/Burger.vue";
 import { useSaveGames } from "@/store/saveGames";
 import { storeToRefs } from "pinia";
 import router from "@/router/router";
@@ -93,7 +99,6 @@ import type { Game } from "@/types/Game";
 const savedGamesLenght = useSaveGames();
 const { savedGames } = storeToRefs(savedGamesLenght);
 const expand = ref(false);
-
 const show_bar = ref(false);
 const empty_input = ref(false);
 const getAllGames = useGetGames();
@@ -162,9 +167,10 @@ const handleOutsideClickBar = (event) => {
     show_bar.value = false;
   }
 };
+
 document.addEventListener("click", handleOutsideClickBar);
 </script>
-<style scoped>
+<style>
 .expandInpu-active {
   /* position: absolute;
   right: 0;
@@ -184,5 +190,19 @@ document.addEventListener("click", handleOutsideClickBar);
 }
 .list_header {
   display: none;
+}
+
+@media screen and (max-width: 640px) {
+  .expandInpu-input__border {
+    border: 2px solid white;
+  }
+  .expandInpu-active {
+    right: 0;
+    background: cadetblue;
+    height: 71px;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute z-10 overflow-auto max-h-[334px] top-16 bg-black right-[84px] scrollbar left-0 rounded-xl"
+    class="absolute z-10 overflow-auto max-h-[334px] top-16 max-[640px]:top-[72px] max-[640px]:w-full bg-black right-[84px] scrollbar left-0 rounded-xl"
     v-if="search_game.trim().length > 0 && games.length > 0"
   >
     <div
