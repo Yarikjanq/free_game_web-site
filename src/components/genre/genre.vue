@@ -40,7 +40,7 @@
       </div>
     </div>
     <div
-      class="grid mt-10 justify-center gap-7 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"
+      class="grid mt-10 justify-center gap-7 grid-cols-[repeat(auto-fill,minmax(250px,1fr))]"
     >
       <Allgames :game_mod="displayedData" />
     </div>
