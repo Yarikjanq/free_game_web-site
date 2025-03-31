@@ -36,7 +36,7 @@
         >
         <div class="flex justify-between items-center">
           <div
-            :class="isSavedGames(id) ? 'border-red-700' : 'border-green-600'"
+            :class="isSavedGames(id) ? 'border-red-700' : 'border-[darkblue]'"
             class="cursor-pointer flex solid border-[3px]"
           >
             <div
@@ -44,7 +44,7 @@
               :class="
                 isSavedGames(id)
                   ? 'hover-svg-bg hover-bg__active text-red-700'
-                  : 'text-green-600'
+                  : 'text-[darkblue]'
               "
               class="hover-svg font-extrabold"
             >
