@@ -13,7 +13,7 @@
         <div class="relative w-full h-full">
           <img
             @click=""
-            class="carousel__item max-h-[398px] w-full object-cover"
+            class="carousel__item max-h-[398px] w-full min-[640px]:object-cover max-[640px]:h-full"
             :src="img"
             alt=""
           />

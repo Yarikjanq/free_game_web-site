@@ -20,7 +20,6 @@ export const useGetGames = defineStore("useGetGames", () => {
         }
       );
       get_info.value = response.data;
-      console.log(response.data);
         isLoading.value = false
     } catch (e) {
 

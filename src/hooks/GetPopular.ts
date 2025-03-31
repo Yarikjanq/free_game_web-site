@@ -18,7 +18,6 @@ export function GetPopular() {
         }
       );
       get_popular.value = response.data;
-      console.log(response.data);
         isLoading.value = false
     } catch (e) {
 

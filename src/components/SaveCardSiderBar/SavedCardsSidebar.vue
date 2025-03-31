@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed right-0 text-black h-full sidebar z-10 w-[500px] rounded-s-xl"
+    class="fixed right-0 text-black h-full sidebar z-10 w-[500px] rounded-s-xl max-[640px]:!w-full"
     :class="['sidebar', { 'sidebar-open': show_bar }]"
   >
     <h1 class="text-white text-center">BASKET</h1>
@@ -65,7 +65,7 @@ const closeSidebar = (show_bar) => {
 <style>
 .sidebar {
   position: fixed;
-  right: -500px;
+  right: -9999px;
   top: 0;
   height: 100%;
   width: 500px;

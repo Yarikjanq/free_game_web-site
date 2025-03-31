@@ -43,7 +43,6 @@ export const useGetIdHeroes = defineStore("useGetIdHeroes", () => {
         }
       );
       get_id.value = response.data;
-      console.log(response.data); 
       isLoading.value = false
     } catch (e) {
 

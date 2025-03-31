@@ -1,49 +1,53 @@
 <template>
-  <div class="flex mt-7 gap-14">
-    <div class="flex">
-      <p>Platform:</p>
-      <select
-        @change="changePlatfrom"
-        class="bg-black"
-        v-model="selected_plaftorm"
-      >
-        <option class="bg-black" disabled value="">Browse by genre</option>
-        <option :value="system" v-for="{ name, system } in platforms">
-          {{ name }}
-        </option>
-      </select>
-    </div>
-    <div class="flex">
-      <p>Genre/Tag:</p>
-      <select @change="changeGenre" class="bg-black" v-model="selected_genre">
-        <option class="bg-black" disabled value="">Browse by genre</option>
-        <option v-for="genre in genres">{{ genre }}</option>
-      </select>
-    </div>
-    <div class="flex">
-      <p>Sort By:</p>
-      <select
-        @change="changeSortBy"
-        class="bg-black"
-        v-model="selected_sort_by"
-      >
-        <option class="bg-black" disabled value="">Sort By</option>
-        <option
-          :value="system"
-          v-for="{ system, name } in sort_by"
-          :key="system"
+  <div class="px-6">
+    <div class="flex mt-7 gap-14 max-[750px]:flex-col max-[750px]:gap-5">
+      <div class="flex">
+        <p>Platform:</p>
+        <select
+          @change="changePlatfrom"
+          class="bg-black"
+          v-model="selected_plaftorm"
         >
-          {{ name }}
-        </option>
-      </select>
+          <option class="bg-black" disabled value="">Browse by genre</option>
+          <option :value="system" v-for="{ name, system } in platforms">
+            {{ name }}
+          </option>
+        </select>
+      </div>
+      <div class="flex">
+        <p>Genre/Tag:</p>
+        <select @change="changeGenre" class="bg-black" v-model="selected_genre">
+          <option class="bg-black" disabled value="">Browse by genre</option>
+          <option v-for="genre in genres">{{ genre }}</option>
+        </select>
+      </div>
+      <div class="flex">
+        <p>Sort By:</p>
+        <select
+          @change="changeSortBy"
+          class="bg-black"
+          v-model="selected_sort_by"
+        >
+          <option class="bg-black" disabled value="">Sort By</option>
+          <option
+            :value="system"
+            v-for="{ system, name } in sort_by"
+            :key="system"
+          >
+            {{ name }}
+          </option>
+        </select>
+      </div>
     </div>
-  </div>
-  <div class="flex flex-wrap mt-10 justify-center gap-7">
-    <Allgames :game_mod="displayedData" />
-  </div>
-  <div ref="observer" class="w-full h-10"></div>
-  <div v-if="useSaveGenge.isLoading" class="mt-4">
-    <loader />
+    <div
+      class="grid mt-10 justify-center gap-7 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"
+    >
+      <Allgames :game_mod="displayedData" />
+    </div>
+    <div ref="observer" class="w-full h-10"></div>
+    <div v-if="useSaveGenge.isLoading" class="mt-4">
+      <loader />
+    </div>
   </div>
 </template>
 

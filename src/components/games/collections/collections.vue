@@ -3,7 +3,7 @@
     <p class="text-2xl font-bold pb-5 text-white flex items-center gap-2">
       Collections <img class="w-5" :src="icon" alt="" />
     </p>
-    <div class="flex gap-10">
+    <div class="flex gap-10 max-[800px]:gap-3 max-[640px]:flex-col">
       <game_card :card_img="popular_games" />
     </div>
   </div>

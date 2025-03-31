@@ -12,8 +12,20 @@
       <div
         class="flex gap-10 max-w-[830px] w-full flex-col justify-center h-full items-center"
       >
-        <p @click="$router.push('/')" class="">Home</p>
-        <p @click="$router.push('/filter')" class="">Filter</p>
+        <p
+          @click="$router.push('/').then(() => (showBurger = !showBurger))"
+          class=""
+        >
+          Home
+        </p>
+        <p
+          @click="
+            $router.push('/filter').then(() => (showBurger = !showBurger))
+          "
+          class=""
+        >
+          Filter
+        </p>
         <div class="flex relative">
           <p @click="showBar" class="save_game">Saved Games</p>
           <span
@@ -40,6 +52,7 @@ const { savedGames } = storeToRefs(savedGamesLenght);
 const emit = defineEmits(["showBar"]);
 const showBar = () => {
   emit("showBar");
+  showBurger.value = !showBurger.value;
 };
 const showBurger = ref(false);
 </script>

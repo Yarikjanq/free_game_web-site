@@ -13,10 +13,10 @@
   >
     <div
       @click="showId(id, title)"
-      class="bg-[cadetblue] max-w-[271px] cursor-pointer"
+      class="bg-[cadetblue] w-full cursor-pointer"
     >
       <div>
-        <img :src="thumbnail" alt="" />
+        <img class="w-full" :src="thumbnail" alt="" />
       </div>
       <div class="flex flex-col px-5 py-3 gap-4">
         <div class="flex justify-between items-center gap-[10px]">
@@ -97,9 +97,6 @@ const router = useRouter();
 
 const saveAllGames = useSaveGames();
 const { savedGames } = storeToRefs(saveAllGames);
-
-const asd = computed(() => savedGames.value);
-console.log(asd);
 
 const props = defineProps<{
   game_mod: Game[];

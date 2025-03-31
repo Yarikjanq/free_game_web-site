@@ -4,12 +4,18 @@
     v-if="search_game.trim().length > 0 && games.length > 0"
   >
     <div
-      class="flex items-center p-3 cursor-pointer hover:bg-[darkgray] gap-[14%] rounded-xl"
+      class="flex items-center max-[640px]:p-2 p-3 cursor-pointer hover:bg-[darkgray] gap-[14%] rounded-xl"
       v-for="game in games"
       @click="emitShowId(game.title, game.id)"
     >
-      <img :src="game.thumbnail" alt="" class="w-[200px] rounded-xl" />
-      <p class="text-[20px] text-white">{{ game.title }}</p>
+      <img
+        :src="game.thumbnail"
+        alt=""
+        class="max-[640px]:w-[125px] w-[200px] rounded-xl"
+      />
+      <p class="max-[640px]:text-[13px] text-[20px] text-white">
+        {{ game.title }}
+      </p>
     </div>
   </div>
 </template>

@@ -22,8 +22,8 @@
           <div class="bg-black w-full absolute top-0 bottom-0 opacity-60"></div>
         </div>
       </Slide>
-      <template class="asdasdasdsa" #addons>
-        <Pagination class="button_category" />
+      <template #addons>
+        <Pagination class="button_category overflow-auto" />
         <Navigation class="!bg-white !h-[100px] !rounded-full" />
       </template>
     </Carousel>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Carousel, Pagination, Slide, Navigation } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import shooter from "@/assets/images/shooter.jpg";
@@ -61,6 +61,13 @@ const breakpoints = {
   itemsToShow: 3,
   snapAlign: "center",
 };
+const updateSettings = () => {
+  if (window.innerWidth <= 640) {
+    settings.value.itemsToShow = 1;
+  } else {
+    settings.value.itemsToShow = 3;
+  }
+};
 const genre_game = ref([
   { genre: "Shooter", url: "shooter", img: shooter },
   { genre: "ARPG", url: "shooter", img: Towerborne },
@@ -80,6 +87,11 @@ const genre_game = ref([
   { genre: "Social", url: "shooter", img: social },
   { genre: "Fantasy", url: "shooter", img: fantasy },
 ]);
+
+onMounted(() => {
+  updateSettings();
+  window.addEventListener("resize", updateSettings);
+});
 </script>
 
 <style>
