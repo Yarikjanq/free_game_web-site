@@ -27,7 +27,7 @@ interface Collection {
   img: string;
 }
 
-const { card_img } = defineProps<{
+defineProps<{
   card_img: Collection[];
 }>();
 </script>

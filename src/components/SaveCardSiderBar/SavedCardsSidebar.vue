@@ -65,21 +65,22 @@ const closeSidebar = (show_bar) => {
 <style>
 .sidebar {
   position: fixed;
-  right: -9999px;
+  right: 0;
   top: 0;
   height: 100%;
   width: 500px;
   background-color: black;
-  color: black;
-  transition: right 0.3s ease;
+  color: white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
   z-index: 10;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-open {
-  right: 0;
-  scrollbar-width: none;
+  transform: translateX(0);
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
